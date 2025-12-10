@@ -8,7 +8,7 @@ This folder contains datasets used for skin lesion analysis, which is not includ
 - `ISIC_2019_Test_GroundTruth.csv` — test labels (held-out set)
 - `ISIC_2019_Test_Metadata.csv` — test metadata (patient/lesion info)
 - `PAD_20_Metadata.csv` — PAD-UFES-20 metadata
-
+---
 - `ISIC_2019_Training_Input/` — ISIC 2019 training images
 - `ISIC_2019_Test_Input/` — ISIC 2019 test images
 - `PAD-UFES-20/images/` — PAD-UFES-20 images
