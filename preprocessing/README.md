@@ -5,19 +5,19 @@ This folder contains preprocessing pipelines and scripts for normalizing skin le
 ## Purpose
 
 The preprocessing module handles:
-- **Image normalization** — resizing, color correction, and standardization
-- **Data augmentation** — generating training variations (rotation, flip, brightness, etc.)
-- **Label encoding** — converting multi-class labels to model-ready format
-- **Metadata integration** — merging image data with patient/lesion metadata
-- **Train/validation/test splits** — creating balanced dataset partitions
-- **Artifact removal** — handling hair, rulers, and other image artifacts
+- **Image normalization** - resizing, color correction, and standardization
+- **Data augmentation** - generating training variations (rotation, flip, brightness, etc.)
+- **Label encoding** - converting multi-class labels to model-ready format
+- **Metadata integration** - merging image data with patient/lesion metadata
+- **Train/validation/test splits** - creating balanced dataset partitions
+- **Artifact removal** - handling hair, rulers, and other image artifacts
 
-## Expected Scripts
+## Scripts
 
-- `prepare_isic.py` — pipeline for ISIC 2019 dataset preparation
-- `prepare_pad.py` — pipeline for PAD-UFES-20 dataset preparation
-- `split_data.py` — create stratified train/val/test splits
-- `preprocess_pipeline.py` — unified preprocessing orchestration
+- `prepare_isic.py` - pipeline for ISIC 2019 dataset preparation
+- `prepare_pad.py` - pipeline for PAD-UFES-20 dataset preparation
+- `split_data.py` - create stratified train/val/test splits
+- `preprocess_pipeline.py` - unified preprocessing orchestration
 
 ## Future (possible) Enhancements
 
