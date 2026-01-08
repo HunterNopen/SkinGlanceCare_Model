@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-from config import Config
+from clean_efficientnet import Config
 
 class SkinGlanceCareClassifierPlainOV(nn.Module):
     def __init__(self, cfg: Config, pretrained_backbone: bool = False):
