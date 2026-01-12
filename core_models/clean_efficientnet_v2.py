@@ -400,18 +400,18 @@ class SkinGlanceCareClassifier(pl.LightningModule):
             nn.Linear(512, cfg.num_classes),
         )
 
-        mel_count = class_counts[0]
-        non_mel = class_counts.sum() - mel_count
-        pos_weight = torch.tensor([non_mel / mel_count], dtype=torch.float)
+        # mel_count = class_counts[0]
+        # non_mel = class_counts.sum() - mel_count
+        # pos_weight = torch.tensor([non_mel / mel_count], dtype=torch.float)
 
-        self.register_buffer("mel_pos_weight", pos_weight)
+        # self.register_buffer("mel_pos_weight", pos_weight)
 
-        self.binary_loss = nn.BCEWithLogitsLoss(pos_weight=self.mel_pos_weight)
-        self.multi_loss = ClassBalancedFocalLoss(
-            class_counts=class_counts,
-            gamma=1.5,
-            label_smoothing=0.05,
-        )
+        # self.binary_loss = nn.BCEWithLogitsLoss(pos_weight=self.mel_pos_weight)
+        # self.multi_loss = ClassBalancedFocalLoss(
+        #     class_counts=class_counts,
+        #     gamma=1.5,
+        #     label_smoothing=0.05,
+        # )
 
         self.lambda_binary = 0.3
         self._setup_metrics()
@@ -925,10 +925,10 @@ def main(train_pipeline: bool = False, best_checkpoint: str = None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_pipeline", action="store_true", default=True)
+    parser.add_argument("--train_pipeline", action="store_true", default=False)
     parser.add_argument("-s", "--skip_train_pipeline", action="store_false", dest="train_pipeline")
     parser.add_argument("--best_checkpoint", type=str, default="lightning_logs/skin_glance_care_classifier/version_0/checkpoints/epoch=33-val_acc=0.861-val_f1=0.831.ckpt")
-    #"lightning_logs/skin_lesion_classifier/version_22/checkpoints/epoch=27-val_acc=0.852-val_f1=0.834.ckpt"
+    # "lightning_logs/skin_lesion_classifier/version_22/checkpoints/epoch=27-val_acc=0.852-val_f1=0.834.ckpt"
     args = parser.parse_args()
 
     main(**vars(args))
