@@ -50,3 +50,27 @@ class HairRemover:
             Image with hair removed
         """
         return self.strategy.remove(image)
+
+    def get_mask(self, image: np.ndarray) -> np.ndarray:
+        """Generate a binary mask of detected hair regions.
+        
+        This method is useful for visualizing detected hair regions or for 
+        use in hyperparameter optimization (e.g., Bayesian searches) to 
+        evaluate different detection strategies.
+        
+        Args:
+            image: Input image as numpy array (grayscale or RGB)
+            
+        Returns:
+            Binary mask where hair regions are marked as 255 (white)
+        """
+        if len(image.shape) == 3:
+            gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        else:
+            gray = image
+
+        kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (17, 17))
+        blackhat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, kernel)
+        _, mask = cv2.threshold(blackhat, 10, 255, cv2.THRESH_BINARY)
+
+        return mask
