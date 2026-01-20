@@ -15,7 +15,7 @@ class ISICDataset(Dataset):
     def __init__(
         self,
         img_dir: str, dataframe: pd.DataFrame,
-        config: Config,transform: A.Compose = None, is_training: bool = True):
+        config: Config, transform: A.Compose = None, is_training: bool = True):
 
         self.img_dir = img_dir
         self.df = dataframe.reset_index(drop=True)
@@ -29,9 +29,9 @@ class ISICDataset(Dataset):
         self.label_indices = np.argmax(self.labels, axis=1)
 
     def _initialize_hair_remover(self):
-        
+        """Returns HairRemover class with 2 facade startegies: agressive = True/False"""
         if self.config.data.use_hair_removal:
-            return HairRemover(kernel_size=self.config.data.hair_removal_kernel,aggressive=True)
+            return HairRemover(kernel_size=self.config.data.hair_removal_kernel, aggressive=False)
         
         return None
 

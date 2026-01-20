@@ -115,7 +115,7 @@ class ISICDataModule(pl.LightningDataModule):
             is_training=False
         )
 
-        # self.test_df = self.test_df[self.test_df['UNK'] == 1.0][:100]
+        # NOTE: For debugging or faster experiments, you may temporarily subset self.test_df = self.test_df[self.test_df['UNK'] == 1.0][:100]
         self.test_dataset = ISICDataset(
             self.test_images_dir,
             self.test_df,
