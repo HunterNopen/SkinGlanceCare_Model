@@ -32,7 +32,7 @@ class ISICDataset(Dataset):
         self.label_indices = np.argmax(self.labels, axis=1)
 
     def _initialize_hair_remover(self):
-        """Returns HairRemover class with 2 facade startegies: agressive = True/False"""
+        """Returns HairRemover class with 2 facade strategies: agressive = True/False"""
         if self.config.data.use_hair_removal:
             return HairRemover(kernel_size=self.config.data.hair_removal_kernel, aggressive=False)
         
