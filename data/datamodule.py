@@ -228,7 +228,7 @@ class ISICDataModule(pl.LightningDataModule):
             self.val_dataset,
             batch_size=self.config.training.batch_size * 2,
             shuffle=False,
-            num_workers=4,
+            num_workers=self.config.data.num_workers // 2,
             pin_memory=self.config.data.pin_memory,
             persistent_workers=True,
         )
@@ -239,7 +239,7 @@ class ISICDataModule(pl.LightningDataModule):
             self.test_dataset,
             batch_size=self.config.training.batch_size,
             shuffle=False,
-            num_workers=4,
+            num_workers=self.config.data.num_workers // 2,
             pin_memory=self.config.data.pin_memory,
         )
 

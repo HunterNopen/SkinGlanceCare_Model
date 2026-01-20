@@ -7,8 +7,11 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 from config import Config
+from abstract import NullObject
 from preprocessing import HairRemover, shades_of_gray
 
+import logging
+logger = logging.getLogger(__name__)
 
 class ISICDataset(Dataset):
 
@@ -33,7 +36,7 @@ class ISICDataset(Dataset):
         if self.config.data.use_hair_removal:
             return HairRemover(kernel_size=self.config.data.hair_removal_kernel, aggressive=False)
         
-        return None
+        return NullObject()
 
     def _extract_labels(self) -> np.ndarray:
         
@@ -64,7 +67,9 @@ class ISICDataset(Dataset):
             return np.array(img)
         
         except FileNotFoundError:
+            logger.warning(f"Image not found at {img_path}, using placeholder")
             return self._create_placeholder_image()
+
 
     def _create_placeholder_image(self) -> np.ndarray:
         
@@ -73,7 +78,7 @@ class ISICDataset(Dataset):
 
     def _apply_preprocessing(self, image: np.ndarray) -> np.ndarray:
         
-        if self.hair_remover is not None:
+        if self.config.data.use_hair_removal:
             image = self.hair_remover(image)
 
         if self.config.data.use_color_constancy:
