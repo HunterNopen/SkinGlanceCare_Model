@@ -84,6 +84,8 @@ class ISICDataModule(pl.LightningDataModule):
 
         if "UNK" in full_df.columns:
             full_df = full_df[full_df["UNK"] == 0.0]
+        if full_df.empty:
+            raise ValueError("No valid samples for full_df!")
 
         if os.path.exists(self.config.data.path_test_gt):
             print("Using separate test set...")
@@ -134,7 +136,7 @@ class ISICDataModule(pl.LightningDataModule):
             test_meta_df = pd.read_csv(self.config.data.path_test_meta)
             test_df = pd.merge(
                 test_gt_df,
-                test_meta_df["image"],
+                test_meta_df[["image"]],
                 on="image",
                 how="left",
             )
@@ -151,13 +153,13 @@ class ISICDataModule(pl.LightningDataModule):
         print("Performing lesion-level stratified split (train/val)...")
 
         grouped = df.groupby("lesion_id").first().reset_index()
-        labels = np.argmax(
+        grouped_labels = np.argmax(
             grouped[list(self.config.model.label_classes)].values,
             axis=1
         )
 
         splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
-        train_idx, val_idx = next(splitter.split(grouped, labels))
+        train_idx, val_idx = next(splitter.split(grouped, grouped_labels))
 
         train_lesions = grouped.iloc[train_idx]["lesion_id"].values
         val_lesions = grouped.iloc[val_idx]["lesion_id"].values
@@ -172,17 +174,17 @@ class ISICDataModule(pl.LightningDataModule):
         print("Performing lesion-level stratified split (train/val/test)...")
 
         grouped = df.groupby("lesion_id").first().reset_index()
-        labels = np.argmax(
+        grouped_labels = np.argmax(
             grouped[list(self.config.model.label_classes)].values,
             axis=1
         )
 
         splitter1 = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
-        train_idx, temp_idx = next(splitter1.split(grouped, labels))
+        train_idx, temp_idx = next(splitter1.split(grouped, grouped_labels))
 
         train_lesions = grouped.iloc[train_idx]["lesion_id"].values
         temp_df = grouped.iloc[temp_idx]
-        temp_labels = labels[temp_idx]
+        temp_labels = grouped_labels[temp_idx]
 
         splitter2 = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
         val_idx, test_idx = next(splitter2.split(temp_df, temp_labels))

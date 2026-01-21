@@ -1,10 +1,14 @@
+import threading
+
 class NullObject:
     """A Null Object that safely absorbs interactions."""
     _instance = None
+    _lock = threading.Lock()
 
     def __new__(cls, *args, **kwargs):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super().__new__(cls)
         return cls._instance
 
     def __call__(self, *args, **kwargs):
