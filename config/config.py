@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Tuple, Dict
 
 
@@ -15,7 +15,7 @@ class ModelConfig:
     label_classes: Tuple[str, ...] = ("MEL", "NV", "BCC", "AK", "BKL", "DF", "VASC", "SCC")
     cancer_classes: Tuple[int, ...] = (0, 2, 3, 7)
 
-    full_class_names: Dict[str, str] = None
+    full_class_names: Dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self):
         if self.full_class_names is None:
@@ -109,26 +109,12 @@ class LoggingConfig:
 class Config:
     """Main configuration class combining all sub-configs"""
 
-    model: ModelConfig = None
-    training: TrainingConfig = None
-    data: DataConfig = None
-    loss: LossConfig = None
-    inference: InferenceConfig = None
-    logging: LoggingConfig = None
-
-    def __post_init__(self):
-        if self.model is None:
-            self.model = ModelConfig()
-        if self.training is None:
-            self.training = TrainingConfig()
-        if self.data is None:
-            self.data = DataConfig()
-        if self.loss is None:
-            self.loss = LossConfig()
-        if self.inference is None:
-            self.inference = InferenceConfig()
-        if self.logging is None:
-            self.logging = LoggingConfig()
+    model: ModelConfig = field(default_factory=ModelConfig)
+    training: TrainingConfig = field(default_factory=TrainingConfig)
+    data: DataConfig = field(default_factory=DataConfig)
+    loss: LossConfig = field(default_factory=LossConfig)
+    inference: InferenceConfig = field(default_factory=InferenceConfig)
+    logging: LoggingConfig = field(default_factory=LoggingConfig)
 
     def display(self):
         """Display configuration in formatted sections"""
@@ -139,7 +125,7 @@ class Config:
         sections = {
             "Model": self.model.__dict__,
             "Training": self.training.__dict__,
-            "Data": {k: v for k, v in self.data.__dict__.items() if k.startswith('path') or k.startswith('use')},
+            "Data": self.data.__dict__,
             "Loss": self.loss.__dict__,
             "Inference": self.inference.__dict__,
             "Logging": self.logging.__dict__,
