@@ -51,12 +51,12 @@ class TrainingConfig:
 class DataConfig:
     """Data loading and preprocessing configuration"""
 
-    path_train_images: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Training_Input"
-    path_train_gt: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Training_GroundTruth.csv"
-    path_train_meta: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Training_Metadata.csv"
-    path_test_images: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Test_Input"
-    path_test_gt: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Test_GroundTruth.csv"
-    path_test_meta: str = "./SkinGlanceCare_Model/data/datasets/ISIC_2019_Test_Metadata.csv"
+    path_train_images: str = "./data_eda/datasets/ISIC_2019_Training_Input"
+    path_train_gt: str = "./data_eda/datasets/ISIC_2019_Training_GroundTruth.csv"
+    path_train_meta: str = "./data_eda/datasets/ISIC_2019_Training_Metadata.csv"
+    path_test_images: str = "./data_eda/datasets/ISIC_2019_Test_Input"
+    path_test_gt: str = "./data_eda/datasets/ISIC_2019_Test_GroundTruth.csv"
+    path_test_meta: str = "./data_eda/datasets/ISIC_2019_Test_Metadata.csv"
     output_dir: str = "./outputs"
 
     num_workers: int = 8
