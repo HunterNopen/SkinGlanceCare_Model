@@ -1,5 +1,5 @@
 # Datasets Artifacts
-data/datasets
+data_eda/datasets
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
