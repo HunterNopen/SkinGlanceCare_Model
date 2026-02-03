@@ -3,9 +3,9 @@
 This folder contains datasets used for skin lesion analysis, which is not included in the repository due to size constraints. Download these datasets separately.
 
 ## EDA Contents 
-- `isic_load_data.py` - EDA script for ISIC 2019 dataset, including data loading, visualization, and basic statistics. Uses Chi-2, Cramer's V and Theils-U for feature analysis.
-- `pad_load_data.py` - EDA script for PAD-UFES-20 dataset, including data loading, visualization, and basic statistics. Uses Chi-2, Cramer's V and Theils-U for feature analysis.
-- `ham_load_data.py` - EDA script for HAM10000 dataset. Mainly skipped as similar to (part of) ISIC 2019 EDA.
+- `isic_load_dataset.py` - EDA notebook for ISIC 2019 dataset, including data loading, visualization, and basic statistics. Uses Chi-2, Cramer's V and Theils-U for feature analysis.
+- `pad_load_dataset.py` - EDA notebook for PAD-UFES-20 dataset, including data loading, visualization, and basic statistics. Uses Chi-2, Cramer's V and Theils-U for feature analysis.
+- `ham_10000_load_dataset.py` - EDA notebook for HAM10000 dataset. Mainly skipped as similar to (part of) ISIC 2019 EDA.
 
 ## Gitignore Data Contents 
 
